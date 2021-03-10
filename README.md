@@ -1,2 +1,3 @@
 # Connect4
- Small Game
+ Small Game Connect 4
+
