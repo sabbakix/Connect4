@@ -9,42 +9,84 @@ green = colored(u'\u2B24', 'green')
 
 # inizial matrix
 # 0 mean empty, 1 mean player 1, 2 mean player 2
-list =  [[0,0,0,0,0,0,0],
+board =  [[0,0,0,0,0,0,0],
          [0,0,0,0,0,0,0],
          [0,0,0,0,0,0,0],
          [0,0,0,0,1,0,0],
          [0,0,0,0,1,0,0],
          [0,0,2,1,2,0,0]]
 
-
-def print_board(list):
-    rows = len(list)
-    cols = len(list[0])
+# Print board
+def print_board():
+    global board
+    rows = len(board)
+    cols = len(board[0])
     for col in range (cols):
         print(str(col+1)+" ", end="")
     print("")
     for row in range(rows):
         for col in range (cols):
-            if list[row][col] == 0:
+            if board[row][col] == 0:
                 print(" |", end="")
-            if list[row][col] == 1:
+            if board[row][col] == 1:
                 print(green+"|", end="")
-            if list[row][col] == 2:
+            if board[row][col] == 2:
                 print(red+"|", end="")
         print("")
         for col in range (cols*2):
             print("-", end="")
         print("")
 
-# Print board
-print_board(list)
+# Add chip to the matrix 
+def add(inputcol,player):
+    global board
+    rows = len(board)
+    cols = len(board[0])
+    addchip = True
 
-# ask input player1 red
-inputcol = input(green+" Player 1. Insert column: ")
+    print(inputcol)
 
-#add to matrix
+    # scan the matrix
+    for row in range(rows):
+        for col in range (cols):
+            # start to check empty spot from the last row and last col
+            reverse_row = rows-int(row)-1
+            reverse_col = cols-int(col)-1
+            
+            # if the space is empy, and chip not already added add
+            # the chip at the bottom of the column
+            if board[reverse_row][reverse_col] == 0:
+                if addchip == True and inputcol-1 == reverse_col:
+                    board[reverse_row][reverse_col]=1
+                    addchip = False
+                print("0|", end="")
+            if board[reverse_row][reverse_col] == 1:
+                print("1|", end="")
+            if board[reverse_row][reverse_col] == 2:
+                print("2|", end="")
+            
+        print("")
+
+        # Print row separator
+        for col in range (cols*2):
+            print("-", end="")
+        print("")
+
+while(True):
+    # Print board
+    print_board()
+
+    # ask input player1 red
+    inputcol = input(" Player 1. Insert column: ")
 
 
-# print board
+    #add to matrix
+    add(int(inputcol),1)
 
-# ask input player2 green
+    # Print board
+    print_board()
+
+    # ask input player2 green
+    inputcol = input(" Player 2. Insert column: ")
+    #add to matrix
+    add(int(inputcol),2)
