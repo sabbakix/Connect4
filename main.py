@@ -12,9 +12,10 @@ green = colored(u'\u2B24', 'green')
 board =  [[0,0,0,0,0,0,0],
          [0,0,0,0,0,0,0],
          [0,0,0,0,0,0,0],
-         [0,0,0,0,1,0,0],
-         [0,0,0,0,1,0,0],
-         [0,0,2,1,2,0,0]]
+         [0,0,0,0,0,0,0],
+         [0,0,0,0,0,0,0],
+         [0,0,0,0,0,0,0]]
+
 
 # Print board
 def print_board():
@@ -37,6 +38,7 @@ def print_board():
             print("-", end="")
         print("")
 
+
 # Add chip to the matrix 
 def add(inputcol,player):
     global board
@@ -44,11 +46,10 @@ def add(inputcol,player):
     cols = len(board[0])
     addchip = True
 
-    print(inputcol)
-
     # scan the matrix
     for row in range(rows):
         for col in range (cols):
+
             # start to check empty spot from the last row and last col
             reverse_row = rows-int(row)-1
             reverse_col = cols-int(col)-1
@@ -57,36 +58,37 @@ def add(inputcol,player):
             # the chip at the bottom of the column
             if board[reverse_row][reverse_col] == 0:
                 if addchip == True and inputcol-1 == reverse_col:
-                    board[reverse_row][reverse_col]=1
+                    board[reverse_row][reverse_col] = player
                     addchip = False
-                print("0|", end="")
-            if board[reverse_row][reverse_col] == 1:
-                print("1|", end="")
-            if board[reverse_row][reverse_col] == 2:
-                print("2|", end="")
-            
-        print("")
 
-        # Print row separator
-        for col in range (cols*2):
-            print("-", end="")
-        print("")
+
+# Print board
+print_board()
 
 while(True):
-    # Print board
-    print_board()
 
-    # ask input player1 red
-    inputcol = input(" Player 1. Insert column: ")
+    # Ask input player1
+    inputcol = input(green+" Player 1. Insert column: ")
 
+    # If  input is empty exit the program
+    if inputcol == "":
+        break
 
-    #add to matrix
+    # Add to matrix
     add(int(inputcol),1)
 
     # Print board
     print_board()
 
-    # ask input player2 green
-    inputcol = input(" Player 2. Insert column: ")
-    #add to matrix
+    # Ask input player2
+    inputcol = input(red+" Player 2. Insert column: ")
+
+    # If  input is empty exit the program
+    if inputcol == "":
+        break
+
+    # Add to matrix
     add(int(inputcol),2)
+
+    # Print board
+    print_board()
