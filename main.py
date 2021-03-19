@@ -74,6 +74,9 @@ while(True):
     if inputcol == "":
         break
 
+    # Clear screen
+    print(chr(27)+"[2J")
+
     # Add to matrix
     add(int(inputcol),1)
 
@@ -86,6 +89,9 @@ while(True):
     # If  input is empty exit the program
     if inputcol == "":
         break
+
+    # Clear screen
+    print(chr(27)+"[2J")
 
     # Add to matrix
     add(int(inputcol),2)
